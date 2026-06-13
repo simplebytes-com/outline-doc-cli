@@ -23,7 +23,8 @@
     "build": "tsc && chmod 755 dist/cli.js",
     "dev": "tsx src/cli.ts",
     "check": "tsc --noEmit",
-    "prepare": "npm run build"
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run check && npm run build"
   },
   "engines": {
     "node": ">=20"
