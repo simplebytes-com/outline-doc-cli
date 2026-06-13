@@ -1,0 +1,47 @@
+{
+  "name": "outline-doc",
+  "version": "0.1.0",
+  "description": "Command line client for the Outline API",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simplebytes/outline-doc-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/simplebytes/outline-doc-cli/issues"
+  },
+  "homepage": "https://github.com/simplebytes/outline-doc-cli#readme",
+  "bin": {
+    "outline-doc": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && chmod 755 dist/cli.js",
+    "dev": "tsx src/cli.ts",
+    "check": "tsc --noEmit",
+    "prepare": "npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^8.0.1",
+    "commander": "^14.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "outline",
+    "cli",
+    "wiki",
+    "knowledge-base"
+  ],
+  "license": "MIT"
+}
