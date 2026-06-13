@@ -5,12 +5,12 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/simplebytes/outline-doc-cli.git"
+    "url": "git+https://github.com/simplebytes-com/outline-doc-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/simplebytes/outline-doc-cli/issues"
+    "url": "https://github.com/simplebytes-com/outline-doc-cli/issues"
   },
-  "homepage": "https://github.com/simplebytes/outline-doc-cli#readme",
+  "homepage": "https://github.com/simplebytes-com/outline-doc-cli#readme",
   "bin": {
     "outline-doc": "./dist/cli.js"
   },

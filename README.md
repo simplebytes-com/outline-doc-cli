@@ -9,13 +9,13 @@ It stores your Outline API token locally so document and collection commands can
 From a GitHub repo:
 
 ```sh
-npm install -g github:simplebytes/outline-doc-cli
+npm install -g github:simplebytes-com/outline-doc-cli
 ```
 
 From a local clone:
 
 ```sh
-git clone https://github.com/simplebytes/outline-doc-cli.git
+git clone https://github.com/simplebytes-com/outline-doc-cli.git
 cd outline-doc-cli
 npm install
 npm link
