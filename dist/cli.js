@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { password } from "@inquirer/prompts";
+import { input, password } from "@inquirer/prompts";
 import { Command, InvalidArgumentError } from "commander";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
@@ -26,15 +26,19 @@ program
 program
     .command("login")
     .description("Persist an Outline API token for future commands")
-    .option("--base-url <url>", "Outline API base URL", process.env.OUTLINE_BASE_URL ?? DEFAULT_BASE_URL)
+    .option("--base-url <url>", "Outline URL or API base URL")
     .option("--token <token>", "Outline API token. If omitted, you will be prompted.")
     .option("--no-validate", "Save credentials without calling /auth.info")
     .action(async (options) => {
+    const baseUrl = options.baseUrl ?? process.env.OUTLINE_BASE_URL ?? await input({
+        message: "Outline URL",
+        default: "https://app.getoutline.com",
+    });
     const token = (options.token ?? process.env.OUTLINE_TOKEN ?? await password({ message: "Outline API token" })).trim();
     if (!token) {
         throw new Error("Token is required");
     }
-    const config = { baseUrl: normalizeBaseUrl(options.baseUrl), token };
+    const config = { baseUrl: normalizeBaseUrl(baseUrl), token };
     if (options.validate) {
         await post(config, "/auth.info", {});
     }

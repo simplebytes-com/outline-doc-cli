@@ -1,7 +1,7 @@
 {
   "name": "outline-doc",
   "version": "0.1.0",
-  "description": "Command line client for the Outline API",
+  "description": "npm-installable command line client for Outline documents, collections, search, and API calls",
   "type": "module",
   "repository": {
     "type": "git",
@@ -40,9 +40,15 @@
   },
   "keywords": [
     "outline",
+    "outline-api",
     "cli",
+    "documents",
     "wiki",
     "knowledge-base"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "author": "SimpleBytes <hello@simplebytes.com>",
+  "publishConfig": {
+    "access": "public"
+  }
 }

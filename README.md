@@ -6,7 +6,13 @@ It stores your Outline API token locally so document and collection commands can
 
 ## Install
 
-From a GitHub repo:
+From npm:
+
+```sh
+npm install -g outline-doc
+```
+
+From GitHub:
 
 ```sh
 npm install -g https://github.com/simplebytes-com/outline-doc-cli/archive/refs/heads/main.tar.gz
@@ -37,7 +43,7 @@ Create an API key in Outline, then run:
 outline-doc login
 ```
 
-For self-hosted Outline:
+The login command asks for your Outline URL and API token. For scripts, pass them explicitly:
 
 ```sh
 outline-doc login --base-url https://outline.example.com
@@ -92,18 +98,12 @@ outline-doc api /users.list --data '{"limit":10}'
 
 All Outline API endpoints are POST endpoints and use bearer authentication.
 
-## Publish to npm
+## Release
 
-When ready:
+Publish a new version:
 
 ```sh
 npm login
 npm version patch
 npm publish --access public
-```
-
-After publishing, users can install with:
-
-```sh
-npm install -g outline-doc
 ```
