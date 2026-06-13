@@ -9,7 +9,7 @@ It stores your Outline API token locally so document and collection commands can
 From a GitHub repo:
 
 ```sh
-npm install -g github:simplebytes-com/outline-doc-cli
+npm install -g https://github.com/simplebytes-com/outline-doc-cli/archive/refs/heads/main.tar.gz
 ```
 
 From a local clone:
