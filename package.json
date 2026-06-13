@@ -12,7 +12,7 @@
   },
   "homepage": "https://github.com/simplebytes-com/outline-doc-cli#readme",
   "bin": {
-    "outline-doc": "./dist/cli.js"
+    "outline-doc": "dist/cli.js"
   },
   "files": [
     "dist",
