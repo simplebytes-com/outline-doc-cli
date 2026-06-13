@@ -70,11 +70,38 @@ program
   });
 
 program
-  .command("config")
-  .description("Show the active configuration with the token redacted")
-  .action(async () => {
-    const config = await loadClientConfig();
-    printJson({ ...config, token: redact(config.token), configPath: configPath() });
+  .command("config [action] [url]")
+  .description("Show or update local configuration")
+  .option("--no-validate", "Save base URL without calling /auth.info")
+  .action(async (action = "show", url: string | undefined, options: { validate: boolean }) => {
+    if (action === "show") {
+      if (url) throw new Error("Usage: outline-doc config show");
+      const stored = await loadConfig();
+      const baseUrl = normalizeBaseUrl(process.env.OUTLINE_BASE_URL ?? stored.baseUrl ?? DEFAULT_BASE_URL);
+      const token = process.env.OUTLINE_TOKEN ?? stored.token ?? "";
+      printJson({ baseUrl, token: token ? redact(token) : "", configPath: configPath() });
+      return;
+    }
+
+    if (action !== "set-base-url") {
+      throw new Error("Usage: outline-doc config [show|set-base-url] [url]");
+    }
+    if (!url) {
+      throw new Error("Usage: outline-doc config set-base-url <url>");
+    }
+    const stored = await loadConfig();
+    const config: Config = {
+      baseUrl: normalizeBaseUrl(url),
+      token: stored.token ?? "",
+    };
+    if (options.validate && config.token) {
+      await post(config, "/auth.info", {});
+    }
+    await saveConfig(config);
+    console.log(`Base URL set to ${config.baseUrl}`);
+    if (options.validate && !config.token) {
+      console.log("No token is saved yet; run `outline-doc login` to authenticate.");
+    }
   });
 
 const collections = program.command("collections").description("Manage Outline collections");

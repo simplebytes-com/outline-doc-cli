@@ -57,11 +57,18 @@ OUTLINE_BASE_URL=https://outline.example.com/api outline-doc whoami
 OUTLINE_CONFIG=/path/to/config.json outline-doc config
 ```
 
+To change the saved base URL later:
+
+```sh
+outline-doc config set-base-url https://outline.example.com
+```
+
 ## Commands
 
 ```sh
 outline-doc whoami
-outline-doc config
+outline-doc config show
+outline-doc config set-base-url https://outline.example.com
 
 outline-doc collections list
 outline-doc collections create --name "Engineering" --description "Team docs"
