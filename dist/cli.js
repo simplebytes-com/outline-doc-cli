@@ -5,6 +5,7 @@ import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { pathToFileURL } from "node:url";
 const DEFAULT_BASE_URL = "https://app.getoutline.com/api";
 const APP_NAME = "outline-doc";
 class ApiError extends Error {
@@ -282,18 +283,20 @@ program
     .action(async (endpoint, options) => {
     printJson(await call(endpoint, await readJsonOption(options.data, options.file)));
 });
-program.parseAsync(process.argv).catch((error) => {
-    if (error instanceof ApiError) {
-        console.error(`error: Outline API returned ${error.message}`);
-    }
-    else if (error instanceof Error) {
-        console.error(`error: ${error.message}`);
-    }
-    else {
-        console.error("error:", error);
-    }
-    process.exit(1);
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+    program.parseAsync(process.argv).catch((error) => {
+        if (error instanceof ApiError) {
+            console.error(`error: Outline API returned ${error.message}`);
+        }
+        else if (error instanceof Error) {
+            console.error(`error: ${error.message}`);
+        }
+        else {
+            console.error("error:", error);
+        }
+        process.exit(1);
+    });
+}
 async function call(endpoint, body) {
     return post(await loadClientConfig(), endpoint, body);
 }
@@ -348,11 +351,12 @@ function configPath() {
     const base = xdg && xdg.trim() ? xdg : path.join(homedir(), ".config");
     return path.join(base, APP_NAME, "config.json");
 }
-function normalizeBaseUrl(input) {
+export function normalizeBaseUrl(input) {
     const trimmed = input.trim().replace(/\/+$/, "");
     if (!trimmed)
         return DEFAULT_BASE_URL;
-    return trimmed.endsWith("/api") ? trimmed : `${trimmed}/api`;
+    const withProtocol = /^[a-z][a-z\d+\-.]*:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+    return withProtocol.endsWith("/api") ? withProtocol : `${withProtocol}/api`;
 }
 function joinUrl(baseUrl, endpoint) {
     const cleanEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;

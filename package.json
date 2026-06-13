@@ -1,6 +1,6 @@
 {
   "name": "outline-doc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "npm-installable command line client for Outline documents, collections, search, and API calls",
   "type": "module",
   "repository": {
@@ -24,7 +24,8 @@
     "dev": "tsx src/cli.ts",
     "check": "tsc --noEmit",
     "prepack": "npm run build",
-    "prepublishOnly": "npm run check && npm run build"
+    "prepublishOnly": "npm run check && npm run build",
+    "test": "npm run build && node test/normalize-base-url.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -46,7 +46,7 @@ outline-doc login
 The login command asks for your Outline URL and API token. For scripts, pass them explicitly:
 
 ```sh
-outline-doc login --base-url https://outline.example.com
+outline-doc login --base-url outline.example.com
 ```
 
 The token is saved to:
@@ -66,7 +66,7 @@ OUTLINE_CONFIG=/path/to/config.json outline-doc config
 To change the saved base URL later:
 
 ```sh
-outline-doc config set-base-url https://outline.example.com
+outline-doc config set-base-url outline.example.com
 ```
 
 ## Commands
@@ -74,7 +74,7 @@ outline-doc config set-base-url https://outline.example.com
 ```sh
 outline-doc whoami
 outline-doc config show
-outline-doc config set-base-url https://outline.example.com
+outline-doc config set-base-url outline.example.com
 
 outline-doc collections list
 outline-doc collections create --name "Engineering" --description "Team docs"
